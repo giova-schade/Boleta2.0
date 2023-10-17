@@ -1,0 +1,67 @@
+<div class="grid fluid content">
+  <div class="col-12">
+      <div class="card card-chart">
+          <p-progressBar *ngIf="loadingPage" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+          <p-blockUI [blocked]="loadingPage" [style]="{'z-index': '2'}"></p-blockUI>
+          <div class="card-header">
+              <div class="grid">
+                  <div class="col-6 text-left">
+                      <h5 class="card-category">Ver Segmentos</h5>
+                  </div>
+                  <div class="col-12 card-body" >
+                    <p-panel  [toggleable]="true" >
+                      <p-table #segmentos [columns]="SegCampos" [value]="datasourceSegmentos" [rowHover]="true" [rows]="10"
+                      [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                      currentPageReportTemplate="Mostrar {first} hasta  {last} de {totalRecords} datos" [filterDelay]="0"
+                      [resizableColumns]="true" [responsive]="true" [autoLayout]="true"
+                      [globalFilterFields]="columnas" styleClass="tabla" *ngIf="Segview" sortMode="multiple"
+                      [multiSortMeta]="multiSortSegmento" [reorderableColumns]="true" styleClass="tabla">
+
+                 <ng-template pTemplate="caption">
+                     <div class="flex">
+                         <button pButton label="Limpiar" class="p-button-outlined custom-button" icon="pi pi-filter-slash"
+                                 (click)="clear(segmentos)"></button>
+                         <span class="p-input-icon-left p-ml-auto">
+                             <input pInputText type="text" (input)="applyFilterGlobalSegment($event, 'contains')"
+                                    placeholder="Filtrar" class="custom-filter-button" />
+                         </span>
+                     </div>
+                 </ng-template>
+                 <ng-template pTemplate="header" let-columns>
+                     <tr >
+                         <th *ngFor="let col of columns">
+                             <p-columnFilter type="text" [field]="col.field" *ngIf="col.field != '' "></p-columnFilter>
+                         </th>
+                     </tr>
+                     <tr>
+                         <th *ngFor="let col of columns" pSortableColumn="{{col.field}}" pReorderableColumn>{{col.field}}
+                             <p-sortIcon field="{{col.field}}" *ngIf="col.field != '' "></p-sortIcon>
+                         </th>
+                     </tr>
+                 </ng-template>
+                 <ng-template pTemplate="body" let-rowData let-columns="columns">
+                     <tr  (dblclick)="onRowDblclick(rowData)" >
+                         <td *ngFor="let col of columns" class="cursor-pointer" >
+                             <div *ngIf="col.field != 'GRP_ESQUEMA_VALIDO'">{{rowData[col.field]}}</div>
+                             <button *ngIf="col.field == 'GRP_ESQUEMA_VALIDO'" (click)="showDialogEsquema(rowData)" pButton pRipple type="button" icon="pi pi-search"
+                                     class="p-button-rounded p-button-outlined" ></button>
+                         </td>
+                     </tr>
+                 </ng-template>
+             </p-table>
+                    </p-panel>
+                    
+                      <p-dialog header="Esquema valido { {{TituloDialog}} }" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+                          <pre [innerHTML]="GRP_ESQUEMA_VALIDO | prettyjson: [true, 3]" cols="80"></pre>
+                      </p-dialog>
+                      <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="'bottom'" [baseZIndex]="10000"></p-confirmDialog>
+                      <p-toast position="top-right" [life]="5000"></p-toast>
+                  </div>
+              </div>
+          </div>
+          <div class="card-body">
+              <div class="chart-area"><canvas id="chartBig1"></canvas></div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="grid fluid content">
+    <div class="col-12">
+        <div class="card">
+            <p-progressBar *ngIf="loadingPage" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            <p-blockUI [blocked]="loadingPage" [style]="{'z-index': '2'}"></p-blockUI>
+
+            <p-toast position="top-right" [life]="5000"></p-toast>
+            <div class="card-header">
+                <div class="col-8 text-left">
+                    <h2 class="card-category">Crear Segmento</h2>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="segmentoForm" accept-charset="utf-8">
+                        <div class="grid">
+                            <!-- Columna Izquierda -->
+                            <div class="col-6 ">
+
+
+                                <!-- Código de Segmento -->
+                                <div class="form-group p-fluid">
+                                    <h6>Codigo segmento</h6>
+                                    <span class="p-input-icon-right">
+                                        <input type="text" pInputText placeholder="Codigo segmento"
+                                            formControlName="GRP_CODIGO"
+                                            oninput="this.value = this.value.toUpperCase()" />
+                                        <p-message severity="error"
+                                            *ngIf="segmentoForm.controls['GRP_CODIGO'].invalid && (segmentoForm.controls['GRP_CODIGO'].touched || GRP_CODIGO_REQ)"
+                                            text="Codigo segmento es requerido"></p-message>
+                                    </span>
+                                </div>
+
+                                <div class=" form-group p-fluid">
+                                    <h6>periocidad</h6>
+
+                                    <p-dropdown [options]="periocidad" placeholder="Seleccione una periocidad"
+                                        optionLabel="name" [showClear]="true" formControlName="GRP_PERIOCIDAD">
+                                    </p-dropdown>
+                                    <p-message severity="error"
+                                        *ngIf="segmentoForm.controls['GRP_PERIOCIDAD'].invalid && (segmentoForm.controls['GRP_PERIOCIDAD'].touched || GRP_PERIOCIDAD_REQ)"
+                                        text="Periocidad es requerido."></p-message>
+
+                                </div>
+                                <div class=" form-group p-fluid">
+                                    <h6>Nombre</h6>
+
+                                    <span class="p-input-icon-right">
+                                        <input type="text" pInputText placeholder="Nombre" formControlName="GRP_NOMBRE"
+                                            oninput="this.value = this.value.toUpperCase()" />
+                                        <p-message severity="error"
+                                            *ngIf="segmentoForm.controls['GRP_NOMBRE'].invalid && (segmentoForm.controls['GRP_NOMBRE'].touched || GRP_NOMBRE_REQ)"
+                                            text="Nombre válido es requerido."></p-message>
+                                    </span>
+                                </div>
+                                <div class=" form-group p-fluid">
+                                    <h6>Descripción</h6>
+
+                                    <span class="p-input-icon-right">
+                                        <input type="text" pInputText placeholder="Descripción"
+                                            formControlName="GRP_DESCRIPCION"
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            />
+                                    </span>
+
+                                    <p-message severity="error"
+                                        *ngIf="segmentoForm.controls['GRP_DESCRIPCION'].invalid && (segmentoForm.controls['GRP_DESCRIPCION'].touched || GRP_DESCRIPCION_REQ)"
+                                        text="Descripción es requerido."></p-message>
+
+                                </div>
+                                <div class=" form-group p-fluid">
+
+                                    <h6>Habilitado</h6>
+
+                                    <p-dropdown [options]="habilitado" placeholder="Habilitado" optionLabel="name"
+                                        [showClear]="true" formControlName="GRP_HABILITADO">
+                                    </p-dropdown>
+
+                                    <p-message severity="error"
+                                        *ngIf="segmentoForm.controls['GRP_HABILITADO'].invalid && (segmentoForm.controls['GRP_HABILITADO'].touched || GRP_HABILITADO_REQ)"
+                                        text="Habilitado es requerido."></p-message>
+
+                                </div>
+                                <div class=" form-group p-fluid">
+                                    <h6>Área de negocio</h6>
+
+                                    <span class="p-input-icon-right">
+                                        <input type="text" pInputText placeholder="Área de negocio"
+                                            formControlName="GRP_AREA_NEGOCIO"
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            />
+                                    </span>
+
+                                    <p-message severity="error"
+                                        *ngIf="segmentoForm.controls['GRP_AREA_NEGOCIO'].invalid && (segmentoForm.controls['GRP_AREA_NEGOCIO'].touched || GRP_AREA_NEGOCIO_REQ)"
+                                        text="Área de negocio es requerido."></p-message>
+                                </div>
+
+                                <div class=" form-group p-fluid">
+                                    <h6>Vigencia Inicio</h6>
+                                    <p-calendar placeholder="Vigencia Inicio" [showIcon]="true" inputId="icon"
+                                        formControlName="GRP_VIGENCIA_INICIO" >
+                                    </p-calendar>
+                                </div>
+                                <div class=" form-group p-fluid">
+                                    <h6>Vigencia Fin</h6>
+                                    <p-calendar placeholder="vigencia Fin" [showIcon]="true" inputId="icon"
+                                        formControlName="GRP_VIGENCIA_FIN" >
+                                    </p-calendar>
+                                </div>
+                                <div class=" form-group p-fluid">
+                                    <button pButton type="submit" label="Crear segmento" 
+                                        (click)="creSegmento()"></button>
+                                </div>
+                                <!-- ... Todos tus otros inputs y dropdowns para la columna izquierda ... -->
+                            </div>
+
+                            <!-- Columna Derecha -->
+                            <div class="col-6 ">
+                                <!-- Área del esquema -->
+                                <div class="form-group p-fluid">
+                                    <textarea rows="5" cols="80" placeholder="Esquema valido { }" pInputTextarea
+                                        formControlName="GRP_ESQUEMA_VALIDO"></textarea>
+                                    <p-message severity="error"
+                                        *ngIf="segmentoForm.controls['GRP_ESQUEMA_VALIDO'].invalid && (segmentoForm.controls['GRP_ESQUEMA_VALIDO'].touched || GRP_ESQUEMA_VALIDO_REQ)"
+                                        text="Esquema es requerido."></p-message>
+                                </div>
+                                <div class="form-group">
+                                    <pre [innerHTML]="segmentoForm.controls['GRP_ESQUEMA_VALIDO'].value | prettyjson: [true, 3]"
+                                        cols="80"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

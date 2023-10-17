@@ -1,0 +1,44 @@
+<header class="header-6">
+  <div class="branding">
+    <img [src]="logo" />
+  </div>
+  <div class="header-nav">
+    <a
+      *ngFor="let link of navLinks"
+      routerLinkActive="active"
+      [routerLink]="link.routerLink"
+      class="nav-link nav-text"
+      >{{ link.label }}</a
+    >
+  </div>
+  <div class="header-actions">
+    <clr-dropdown [clrCloseMenuOnItemClick]="false">
+      <button clrDropdownTrigger aria-label="user">
+        {{ username.length > 0 ? username : 'Sin iniciar sesión' }}
+        <clr-icon shape="user"></clr-icon>
+      </button>
+      <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+        <clr-toggle-wrapper clrDropdownItem>
+          <input
+            type="checkbox"
+            clrToggle
+            name="debug"
+            [(ngModel)]="sasjsConfig.debug"
+            (change)="onDebugChange()"
+          />
+          <label>Debug</label>
+        </clr-toggle-wrapper>
+
+        <div class="dropdown-divider" role="separator" aria-hidden="true"></div>
+
+        <div
+          *ngFor="let item of userDropdownItems"
+          (click)="item.clickCallback()"
+          clrDropdownItem
+        >
+          {{ item.label }}
+        </div>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+</header>

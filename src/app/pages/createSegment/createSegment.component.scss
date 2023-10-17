@@ -1,0 +1,51 @@
+.sizes {
+    .p-inputtext {
+        display: block;
+        margin-bottom: .5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.p-field * {
+    display: block;
+}
+
+h6{
+    color: #0272ba;
+    font-size: 11px;
+}
+
+
+pre {
+    font-weight: 400;
+    background: #032e4a;
+    border-radius: 6px;
+    .number-line {
+      color: #0c0c2c ;
+    }
+    .string {
+      color: #95c602;
+    }
+    .number {
+      color: #f2b619;
+    }
+    .boolean {
+      color: #0097f1;
+    }
+    .null {
+      color: #727990;
+    }
+    .key {
+      color: #fff;
+    }
+  }
+
+  /* Estilo personalizado para reducir el tamaño de los botones e inputs */
+.small-style {
+  font-size: 12px;
+  padding: 5px;
+  height: 30px;
+}

@@ -1,0 +1,41 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    padding: 5px !important; /* Ajusta el padding según tus necesidades */
+    font-size: 12px !important; /* Ajusta el tamaño de la fuente según tus necesidades */
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    padding: 5px !important; /* Ajusta el padding según tus necesidades */
+    font-size: 12px !important; /* Ajusta el tamaño de la fuente según tus necesidades */
+}
+
+
+::ng-deep .p-datatable .p-column-filter input {
+    height: 25px !important;
+    font-size: 12px !important;
+    padding: 2px 4px !important;
+}
+
+
+::ng-deep .p-button.custom-button {
+    height: 40px !important;
+    font-size: 15px !important;
+    padding: 2px 4px !important;
+    line-height: 1.2 !important; /* Ajusta según necesidad para alinear el texto verticalmente */
+    text-align: center;
+}
+
+::ng-deep .p-datatable .p-inputtext {
+    height: 40px !important;
+    font-size: 15px !important;
+    padding: 2px 4px !important;
+    text-align: center;
+}
+
+
+ .custom-filter-button {
+    width: 100px !important;
+  }
+  

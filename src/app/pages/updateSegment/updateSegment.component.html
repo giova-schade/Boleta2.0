@@ -1,0 +1,112 @@
+<div class="grid fluid content">
+  <div class="col-12">
+    <div class="card">
+      <p-progressBar *ngIf="loadingPage" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+      <p-blockUI [blocked]="loadingPage" [style]="{'z-index': '2'}"></p-blockUI>
+      <p-toast position="top-right" [life]="5000"></p-toast>
+      <div class="card-header">
+        <div class="col-8 text-left">
+          <h2 class="card-category">Actualizar Segmento</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="segmentoForm" accept-charset="utf-8">
+            <div class="grid">
+              <!-- Columna Izquierda -->
+              <div class="col-6 ">
+
+
+                <!-- Código de Segmento -->
+                <div class="form-group p-fluid">
+                  <h6>Codigo segmento</h6>
+                  <span class="p-input-icon-right">
+                    <p-dropdown [options]="codigos" placeholder="Seleccione un codigo" optionLabel="name"
+                      [showClear]="true" formControlName="GRP_CODIGO"
+                      (onChange)="OnChange(segmentoForm.controls['GRP_CODIGO'].value)">
+                    </p-dropdown>
+                  </span>
+                </div>
+
+                <div class=" form-group p-fluid">
+                  <h6>periocidad</h6>
+
+                  <p-dropdown [options]="periocidad" placeholder="Seleccione una periocidad" optionLabel="name"
+                    [showClear]="true" formControlName="GRP_PERIOCIDAD">
+                  </p-dropdown>
+
+                </div>
+                <div class=" form-group p-fluid">
+                  <h6>Nombre</h6>
+
+                  <span class="p-input-icon-right">
+                    <input type="text" pInputText placeholder="Nombre" formControlName="GRP_NOMBRE"
+                      oninput="this.value = this.value.toUpperCase()" />
+                  </span>
+                </div>
+                <div class=" form-group p-fluid">
+                  <h6>Descripción</h6>
+
+                  <span class="p-input-icon-right">
+                    <input type="text" pInputText placeholder="Descripción" formControlName="GRP_DESCRIPCION"
+                      oninput="this.value = this.value.toUpperCase()" />
+                  </span>
+
+
+                </div>
+                <div class=" form-group p-fluid">
+
+                  <h6>Habilitado</h6>
+
+                  <p-dropdown [options]="habilitado" placeholder="Habilitado" optionLabel="name" [showClear]="true"
+                    formControlName="GRP_HABILITADO">
+                  </p-dropdown>
+
+                </div>
+                <div class=" form-group p-fluid">
+                  <h6>Área de negocio</h6>
+
+                  <span class="p-input-icon-right">
+                    <input type="text" pInputText placeholder="Área de negocio" formControlName="GRP_AREA_NEGOCIO"
+                      oninput="this.value = this.value.toUpperCase()" />
+                  </span>
+                </div>
+
+                <div class=" form-group p-fluid">
+                  <h6>Vigencia Inicio</h6>
+                  <p-calendar placeholder="Vigencia Inicio" [showIcon]="true" inputId="icon"
+                    formControlName="GRP_VIGENCIA_INICIO">
+                  </p-calendar>
+                </div>
+                <div class=" form-group p-fluid">
+                  <h6>Vigencia Fin</h6>
+                  <p-calendar placeholder="vigencia Fin" [showIcon]="true" inputId="icon"
+                    formControlName="GRP_VIGENCIA_FIN">
+                  </p-calendar>
+                </div>
+                <div class=" form-group p-fluid">
+                  <button pButton type="submit" label="Actualizar segmento"
+                    (click)="updateSegmento(segmentoForm.controls)"></button>
+                </div>
+                <!-- ... Todos tus otros inputs y dropdowns para la columna izquierda ... -->
+              </div>
+
+              <!-- Columna Derecha -->
+              <div class="col-6 ">
+                <!-- Área del esquema -->
+                <div class="form-group p-fluid">
+                  <textarea rows="5" cols="80" placeholder="Esquema valido { }" pInputTextarea
+                    formControlName="GRP_ESQUEMA_VALIDO"></textarea>
+                
+                </div>
+                <div class="form-group">
+                  <pre [innerHTML]="segmentoForm.controls['GRP_ESQUEMA_VALIDO'].value | prettyjson: [true, 3]"
+                    cols="80"></pre>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

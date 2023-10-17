@@ -1,0 +1,108 @@
+<div class="grid p-fluid content">
+  <div class="col-12">
+    <div class="card">
+      <p-progressBar *ngIf="loadingPage" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+      <p-blockUI [blocked]="loadingPage" [style]="{'z-index': '2'}"></p-blockUI>
+      <p-toast position="top-right" [life]="5000"></p-toast>
+
+      <div class="card-header">
+        <div class="col-12 text-left">
+          <h5 class="card-category">Ver logs</h5>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="grid">
+          <!-- Columna 1 -->
+          <div class="col-md-6">
+            <form [formGroup]="logsForm">
+              <div class="form-group">
+                  <h6>Codigo segmento</h6>
+                  <span class="p-input-icon-right">
+                      <p-dropdown [options]="codigos" placeholder="Seleccione un codigo" optionLabel="name"
+                          [showClear]="true" formControlName="GRP_CODIGO"
+                          (onChange)="OnChange(logsForm.controls['GRP_CODIGO'].value)">
+                      </p-dropdown>
+                  </span>
+              </div>
+              <div class="form-group">
+                  <h6>Fecha Inicio</h6>
+                  <p-calendar formControlName="FECHALOGS_MIN" placeholder="Fecha inicio" dateFormat="dd-mm-yy"
+                      [showIcon]="true"></p-calendar>
+              </div>
+              <div class="form-group">
+                  <h6>Fecha Termino</h6>
+                  <p-calendar formControlName="FECHALOGS_MAX" placeholder="Fecha termino" dateFormat="dd-mm-yy"
+                      [showIcon]="true"></p-calendar>
+              </div>
+              <div class="form-group">
+                  <h6>Usuario</h6>
+                  <span class="p-input-icon-right">
+                      <input type="text" pInputText placeholder="usuario" formControlName="USUARIOLOGS" />
+                  </span>
+              </div>
+              <div class="form-group">
+                  <button pButton type="submit" label="Ver logs" (click)="Viewlog(logsForm.controls)"></button>
+              </div>
+          </form>
+          </div>
+
+          <!-- Columna 2 -->
+          <div class="col-md-3">
+            <!-- ... contenido de la columna 2 ... -->
+
+          </div>
+
+          <!-- Columna 3 -->
+          <div class="col-md-3">
+            <!-- ... contenido de la columna 3 ... -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Nueva sección para la p-table -->
+      <div class="card-body">
+        <div class="col-12" *ngIf="datasourceLogs && datasourceLogs.length > 0">
+          <p-panel header="Logs" [toggleable]="true">
+            <p-table #Logs [columns]="LogsCampos" [value]="datasourceLogs" [rowHover]="true" [rows]="10"
+              [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+              currentPageReportTemplate="Mostrar {first} hasta {last} de {totalRecords} datos" [filterDelay]="0"
+              [resizableColumns]="true" [responsive]="true" [autoLayout]="true" [globalFilterFields]="LogsCampos.field"
+              styleClass="tabla" *ngIf="Logsview" sortMode="multiple" [multiSortMeta]="multiSortSegmento"
+              [reorderableColumns]="true">
+              <ng-template pTemplate="caption">
+                <div class="flex">
+                  <button pButton label="Limpiar" class="p-button-outlined custom-button" icon="pi pi-filter-slash" (click)="clear(Logs)">
+                  </button>
+                  <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="applyFilterGlobalLogst($event, 'contains')" placeholder="Filtrar" class="custom-filter-button" />
+                  </span>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    <p-columnFilter type="text" [field]="col.field"></p-columnFilter>
+                  </th>
+                </tr>
+                <tr>
+                  <th *ngFor="let col of columns" pSortableColumn="{{col.field}}" pReorderableColumn>{{col.field}}
+                    <p-sortIcon field="{{col.field}}">
+                    </p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns">{{rowData[col.field]}}</td>
+              </ng-template>
+            </p-table>
+          </p-panel>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+</div>

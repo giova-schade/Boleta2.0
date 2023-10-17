@@ -1,0 +1,45 @@
+:host {
+  ::ng-deep .p-panelmenu-header>a {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #0061a0;
+  }
+
+  ::ng-deep .p-panelmenu-header.p-highlight>a {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #0061a0;
+  }
+}
+
+:host {
+  ::ng-deep .p-toggleable-content .p-panelmenu-content {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+
+  ::ng-deep .p-toggleable-content .p-panelmenu-content .p-panelmenu-root-submenu>li>a {
+    background-color: transparent !important;
+  }
+
+  ::ng-deep .p-toggleable-content .p-panelmenu-content .p-panelmenu-root-submenu>li>a>.p-menuitem-icon {
+    color: #0061a0;
+    /* border-radius: 0; */
+    transition: box-shadow 0.2s;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  ::ng-deep .p-toggleable-content .p-panelmenu-content .p-panelmenu-root-submenu>li>a>.p-menuitem-text {
+    color: #0061a0;
+  }
+
+
+}
+::ng-deep .p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-action {
+  font-weight: 700 !important;
+}
+
+::ng-deep .p-panelmenu-header>a {
+  border-color: transparent!important;
+}

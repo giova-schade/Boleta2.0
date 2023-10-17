@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+  <div class="container-fluid row">
+
+    <!-- Primer bloque: Toggle y título -->
+    <div class="col-4 flex align-items-center">
+      <div class="navbar-toggle d-inline">
+        <button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a>
+    </div>
+
+    <!-- Segundo bloque: Espacio central  -->
+
+    <div class="sasjs-ui">
+      <div class="sasjs-root">
+        <sasjs-logs [(show)]="requestModal" [sasjsConfig]="sasjsConfig" [sasjsRequests]="sasjsRequests"  
+          (showChange)="openChange($event)"></sasjs-logs>
+          <sasjs-login-modal *ngIf="!isLoggedIn" [loginLoading]="loginLoading"
+          (loginButtonClicked)="login($event)"></sasjs-login-modal>
+      </div>
+    </div>
+
+
+
+    <!-- Tercer bloque: Botones y acciones a la derecha -->
+    <div class="">
+      <div class="container-fluid row"> <!-- Cambiado 'grid' a 'row' -->
+        <p-toast></p-toast>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="{{nameUser}}"></button>
+      </div>
+    </div>
+
+  </div>
+</nav>

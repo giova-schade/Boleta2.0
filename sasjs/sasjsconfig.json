@@ -1,0 +1,47 @@
+{
+  "$schema": "https://cli.sasjs.io/sasjsconfig-schema.json",
+  "macroFolders": [
+    "sasjs/macros"
+  ],
+  "programFolders": [
+    "sasjs/BESASGC"
+  ],
+  "serviceConfig": {
+    "serviceFolders": [
+      "sasjs/services/common",
+      "sasjs/services/files"
+    ],
+    "initProgram": "sasjs/init.sas"
+  },
+  "jobConfig": {
+    "jobFolders": [
+      "sasjs/jobs/admin"
+    ],
+    "initProgram": "sasjs/init.sas"
+  },
+  "defaultTarget": "boleta",
+  "targets": [
+    {
+      "name": "server",
+      "syncFolder": "sasjs/mocks",
+      "serverUrl": "http://localhost:5000",
+      "serverType": "SASJS",
+      "appLoc": "/Boleta/migracion/sas9",
+      "streamConfig": {
+        "streamLogo": "assets/img/logo.jpg",
+        "streamServiceName": "Boleta_Electronica",
+        "streamWeb": true,
+        "streamWebFolder": "web",
+        "webSourcePath": "dist/BE"
+      }
+    },
+    {
+      "name": "boleta",
+      "serverUrl": "https://sasdesa.sii.cl:8343",
+      "serverType": "SAS9",
+      "appLoc": "/Boleta/migracion/sas9",
+      "serverName": "SASAppEGRC",
+      "repositoryName": "Foundation"
+    }
+  ]
+}
