@@ -1,11 +1,13 @@
 <div class="wrapper">
+    <div class="sidebar">
+      <app-sidebar></app-sidebar>
+    </div>
     <div class="main-panel">
-        <div class="content">
-            <p-panel header="{{Title}}" styleClass="access-denied" >
-                <p>{{Mensaje}}</p>
-            </p-panel>
-         </div>
+      <app-navbar></app-navbar>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
 
+      
     </div>
   </div>
   

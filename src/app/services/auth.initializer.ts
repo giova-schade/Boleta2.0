@@ -12,6 +12,8 @@ export class AuthInitializer {
     initialize(): Promise<any> {
         return this.authService.getStartupData('common/appinit', null).then((startupData: StartupData) => {
             this.login(startupData.groups[0].ROLE, startupData.groups[0].NOMBRE, '');
+        }).catch((error:any) => {
+            this.router.navigate(['access-denied']); // Reemplaza 'ruta-del-error' por la ruta a la que deseas redirigir.
         });
     }
 
