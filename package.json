@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "docs": "cp -R docs dist/ && sasjs doc && cp -R sasjsbuild/docs/* dist/docs/static/sas/",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
