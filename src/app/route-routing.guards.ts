@@ -12,11 +12,9 @@ export class AuthGuard implements CanActivate, CanLoad {
     ) { }
 
     async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
-        const startupData: StartupData = await this.authService.getStartupData('common/appinit', null);
 
         // Aquí puedes hacer algo con los datos de inicio si es necesario
-
-        if (!this.authService.isAuthorized()) {
+       if (!this.authService.isAuthorized()) {
             this.router.navigate(['access-denied']);
             return false;
         }

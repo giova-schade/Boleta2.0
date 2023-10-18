@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
+import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -15,7 +15,7 @@ import { ComponentsModule } from "./components/components.module";
 import { AccessDenied } from "./layouts/access-denied/access-denied.component";
 import { AuthService } from './services/auth.services';
 import { PanelModule } from 'primeng/panel';
-
+import { AuthInitializer } from './services/auth.initializer';
 
 
 
@@ -35,7 +35,12 @@ import { PanelModule } from 'primeng/panel';
                  AdminLayoutComponent ,
                  AccessDenied 
                ],
-  providers: [AuthService],
+  providers: [AuthService,{
+    provide: APP_INITIALIZER,
+    useFactory: (authInitializer: AuthInitializer) => () => authInitializer.initialize(),
+    deps: [AuthInitializer],
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

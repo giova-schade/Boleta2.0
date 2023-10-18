@@ -73,22 +73,30 @@ export class AuthService {
     private user: User = new User;
     private adapter: SASjs
     private isUserLoggedIn$ = new BehaviorSubject(true)
+    private startupDataCache: StartupData | null = null
     public isUserLoggedIn = this.isUserLoggedIn$.asObservable()
     public username = new BehaviorSubject('')
 
-    constructor(private http: HttpClient, private stateService: StateService,) {
+    constructor(private http: HttpClient, private stateService: StateService) {
         this.adapter = new SASjs(window.sasjsConfigInput);
 
     }
-    isAuthorized() {
-        return !!this.user;
+    
+
+
+    public loginFromStartupData(startupData: StartupData) {
+        this.login(startupData.groups[0].ROLE, startupData.groups[0].NOMBRE, '');
+    }
+    public isAuthorized() {
+        console.log("Is authorized called. User name:", this.user.name);
+        return !!this.user.name;
     }
 
-    hasRole(role: Role) {
+    public hasRole(role: Role) {
         return this.isAuthorized() && this.user.role === role;
     }
 
-    existe(role: string, roles: any) {
+    public existe(role: string, roles: any) {
         for (let rol in roles) {
             if (rol == role) {
                 return true;
@@ -108,6 +116,8 @@ export class AuthService {
     public getSasjsConfig() {
         return this.adapter.getSasjsConfig();
     }
+
+    
     public login(role: Role, name: any, info: any) {
         this.user = { role: role, name: name, info: info };
     }
@@ -139,6 +149,10 @@ export class AuthService {
     public getStartupData(url: string, data?: any, config?: SASjsConfig): any {
         // host and path (app loc) are automatically added
         // by adapter based on configuration in the index.html
+        if (this.startupDataCache) {
+            return Promise.resolve(this.startupDataCache);
+        }
+
         url = 'services/' + url
 
         return new Promise((resolve, reject) => {
@@ -154,6 +168,7 @@ export class AuthService {
                         }
 
                         this.user.name = res.MF_GETUSER
+                        this.startupDataCache = res
 
                         resolve(res)
                     },
@@ -166,33 +181,35 @@ export class AuthService {
 
 
 
-    setIsLoggedIn(value: boolean) {
+    public setIsLoggedIn(value: boolean) {
         this.isUserLoggedIn$.next(value)
     }
-    getUser(): Observable<any> {
+    public getUser(): Observable<any> {
         return this.http.get(CONFIG.apiUrlLogin);
     }
 
     pushlink(role: string, link: any) {
+        let roleConfig;
+    
         if (role == "BEADM") {
-            let roleConfig = BEADM;
-
-            if (this.ValidaUrl(link, roleConfig)) {
-                link.routerLink = link.routerLink;
-                links.push(link);
-
-            }
-            let subrl = this.PushSuburl(link, roleConfig, role);
-            if (subrl.hasOwnProperty('items')) {
-                if (subrl.items.length) {
-                    links.push(subrl);
-                }
-            };
+            roleConfig = BEADM;
+        } else {
+            return; 
         }
-
-
+    
+        if (this.ValidaUrl(link, roleConfig)) {
+            link.routerLink = link.routerLink;
+            links.push(link);
+        }
+    
+        let subrl = this.PushSuburl(link, roleConfig, role);
+        if (subrl.hasOwnProperty('items')) {
+            if (subrl.items.length) {
+                links.push(subrl);
+            }
+        };
     }
-    PushSuburl(link: any, roleConfig: any, role: string) {
+    public PushSuburl(link: any, roleConfig: any, role: string) {
         var suburl = [];
         if (link.hasOwnProperty('items')) {
             for (let subitem in link.items) {
@@ -217,7 +234,7 @@ export class AuthService {
 
         return link;
     }
-    ValidaUrl(pagina: any, paginas: any) {
+    public ValidaUrl(pagina: any, paginas: any) {
         for (let valor in paginas) {
             if (valor == pagina.routerLink && paginas[valor] == 'Yes') {
                 return true;

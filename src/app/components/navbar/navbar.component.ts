@@ -109,7 +109,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     this.authService.isUserLoggedIn.subscribe((isLoggedIn: boolean) => {
-      this.isLoggedIn = isLoggedIn;
+      this.isLoggedIn = isLoggedIn
     })
     this.authService.username.subscribe((username: string) => {
       this.username = username
@@ -141,7 +141,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public openChange(open: boolean) {
 
     console.log(this.authService.getSasRequests());
-    console.log('asds')
     if (open) this.sasjsRequests = this.authService.getSasRequests()
   }
   public getSasjsConfig() {
@@ -153,7 +152,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   public openDocs() {
-    window.location.replace(`${window.location.pathname}/docs`)
+    window.location.replace(`/assets/docs/static/sas/index.html`)
   }
   public logout() {
     this.authService.logout()

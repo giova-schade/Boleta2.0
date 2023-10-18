@@ -16,6 +16,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "viewLogs", component: viewLogsComponent },
   { path: "runValidator", component: runValidatorComponent },
   { path: "viewSegment", component: viewSegmentComponent }
-  
-  
 ];
+
